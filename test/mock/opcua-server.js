@@ -2,8 +2,6 @@
  * Created by Thomas on 26.08.2015.
  */
 var opcua = require("node-opcua");
-
-// Promise API for server createion
 var Promise = require('bluebird');
 
 // Let's create an instance of OPCUAServer
