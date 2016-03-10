@@ -1,6 +1,6 @@
 {
   "name": "node-opcua-simple",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a wrapper for node-opcua have a promised based api",
   "main": "node-opuca-simple.js",
   "scripts": {
