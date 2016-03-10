@@ -229,7 +229,7 @@ opcua.prototype.write = function(nodeId, value, type){
 //========================= Subscribe / Monitor ====================================
 //==================================================================================
 
-opcua.prototype.subscribe = function(nodeId) {
+opcua.prototype.subscribe = function() {
   var nodeopcua = require('node-opcua');
 
   var self = this;
@@ -245,24 +245,24 @@ opcua.prototype.subscribe = function(nodeId) {
       priority : 10
     };
 
-    self.subscription = new nodeopcua.ClientSubscription(self.session,subscriptionSettings);
+    let subscription = new nodeopcua.ClientSubscription(self.session,subscriptionSettings);
 
-    self.subscription.on("started", function() {
+    subscription.on("started", function() {
       console.log("mi5Subscribe: subscription started - subscriptionId=",
-        opcua.subscription.subscriptionId);
+        subscription.subscriptionId);
     });
 
-    self.subscription.on("keepalive", function() {
+    subscription.on("keepalive", function() {
       console.log('SUBS: keepalive');
     }).on("terminated", function() {
       console.log('SUBS: terminated');
     });
 
-    resolve({status: 'ok', description: 'subscription created'});
+    resolve(subscription);
   });
 };
 
-opcua.prototype.monitor = function(nodes) {
+opcua.prototype.monitor = function(subscription, nodes) {
   var nodeopcua = require('node-opcua');
 
   var self = this;
@@ -281,7 +281,7 @@ opcua.prototype.monitor = function(nodes) {
   var timestampToReturn = nodeopcua.read_service.TimestampsToReturn.Both;
 
   return new Promise(function(resolve) {
-    var monitoredNode = self.subscription.monitor(nodes[0],
+    var monitoredNode = subscription.monitor(nodes[0],
       requestedParameters, timestampToReturn);
 
     setTimeout(function(){

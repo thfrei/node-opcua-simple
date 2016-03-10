@@ -12,11 +12,11 @@ var assert = require('chai').assert;
 
 describe('Test OPC UA library', function(){
 
-  before(function(done){
-    this.timeout(10*1000);
-    var opcuaserver = require('./mock/opcua-server');
-    opcuaserver.instance().done(done); //wait until server is started
-  });
+  //before(function(done){
+  //  this.timeout(10*1000);
+  //  var opcuaserver = require('./mock/opcua-server');
+  //  opcuaserver.instance().done(done); //wait until server is started
+  //});
 
   describe('test opcua instance', function(){
     var opc = new require('./../node-opcua-simple.js');
@@ -93,24 +93,16 @@ describe('Test OPC UA library', function(){
       });
     });
 
-    describe('#subscribe()', function(){
-      it('should create a subscription', function(){
-        return opcua.subscribe()
-          .then(function(result){
-            assert.equal(result.status,'ok');
-            //console.log(opcua.subscription);
-          });
-      });
-    });
-
     describe('#monitor()', function(){
       it('should monitor an item (subscription required)', function(done){
-        opcua.monitor(nodeId)
+        var subscription = opcua.subscribe();
+        opcua.monitor(subscription, nodeId)
           .then(function(monitoredItem){
             assert(typeof monitoredItem != 'undefined', 'monitoredItem not undefined');
             monitoredItem.on('changed', function(data){
               console.log('changed value', data.value.value);
               assert(data.value.value == true, 'monitored a change');
+              subscription.terminate();
               done();
             });
 
