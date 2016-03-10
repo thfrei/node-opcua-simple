@@ -4,7 +4,7 @@
   "description": "a wrapper for node-opcua have a promised based api",
   "main": "node-opuca-simple.js",
   "scripts": {
-    "test": "mocha"
+    "test": "grunt"
   },
   "keywords": [
     "node-opcua",
