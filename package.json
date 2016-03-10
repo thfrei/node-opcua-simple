@@ -1,0 +1,29 @@
+{
+  "name": "node-opcua-simple",
+  "version": "0.1.0",
+  "description": "a wrapper for node-opcua have a promised based api",
+  "main": "node-opuca-simple.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "node-opcua",
+    "bluebird",
+    "promise"
+  ],
+  "author": "Thomas Frei",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.5.2",
+    "better-assert": "^1.0.2",
+    "bluebird": "^3.3.4",
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.4.5"
+  }
+}
